@@ -1,5 +1,10 @@
 ## 创建Spring项目
 直接用IDEA创建一个Spring项目即可,依赖的Spring包回自动导入.   
+
+## classPathXmlApplicationContext
+用于加载classpath(类路径,src)下的xml,加载xml运行时的位置-->(WEB-INF/classes/xxx.xml)
+## FileSystemApplicationConext
+加载xml运行时的位置--->(WEB-INF/xxx.xml)
 ## 配置spring.xml文件
 该文件必须放在src目录下,否则context找不到;
 ### Cause of this Exception :
