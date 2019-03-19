@@ -8,10 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestAnnoIoc {
     @Test
     public void demo01(){
-        String xml="student.xml";
+        String xml= "followBilibili/student.xml";
         ApplicationContext applicationContext=new ClassPathXmlApplicationContext(xml);
         StudentAction studentAction=(StudentAction)applicationContext.getBean("StudentActionId");
-
         studentAction.execute();
     }
 }

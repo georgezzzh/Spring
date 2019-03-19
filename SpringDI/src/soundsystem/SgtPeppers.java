@@ -2,14 +2,13 @@ package soundsystem;
 import org.springframework.stereotype.Component;
 
 @Component
-
 public class SgtPeppers implements CompactDisc {
     private String title="Sgt. Pepper's Lonely Hearts Club Band";
     private String artists="The Beatles";
     public void play(){
-        System.out.println("Hello");
+        System.out.println("Playing "+title+" by "+artists);
     }
-    public CompactDisc SgtPeppers(){
-        return new SgtPeppers();
+    public void playTrack(int number){
+
     }
 }
