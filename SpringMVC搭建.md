@@ -11,4 +11,9 @@
 
 ![](https://github.com/georgezhou314/imageRepo/raw/master/Spring/SpringMVC%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png)    
 
-## Spring
+## SpringMVC 使用Maven创建
+
+<a href="https://www.cnblogs.com/shang-shang/p/7477607.html">配置过程</a>
+
+## SpringMVC    使用Thymeleaf模板
+
