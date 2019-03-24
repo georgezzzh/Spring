@@ -31,7 +31,7 @@ The spring.xml file must exist in src folder and not under the Project Root fold
 1. 首先创建配置类,xxxConfig类,并在类前面写注解@Configuration
 2. 声明简单的Bean   
 要在JavaConfig中声明Bean,我们需要编写一个方法,这个方法会创建所需类型的实例,然后给这个方法添加@Bean的注解
-    
+   
 
         @Bean
         public CompactDisc SgtPeppers(){

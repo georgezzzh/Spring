@@ -1,5 +1,9 @@
 ## SpringMVC 文件上传
 
+
+
+**Attention: 使用HttpServletRequest时，一定要设置UTF-8编码**
+
 ### 1.  使用apache.common方式上传
 
 1. 依赖包(commons-fileupload, commons-io)两个jar包
@@ -48,6 +52,17 @@
    }
    ```
 
+5. 前端表单
+
+   ```html
+   <form method="post" enctype="multipart/form-data">
+       <input type="file" name="profilePicture"/>
+       <input type="submit"/>
+   </form>
+   ```
+
+   
+
 ### 2. 使用Spring自带的StandardServletMultipartResolver解析
 
 1. 依赖包(配置好Spring的依赖包就可以，不需要另外的包)
@@ -63,10 +78,10 @@
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String process(HttpServletRequest request)
     throws IOException{
+        request.setCharacterEncoding("UTF-8");
         StandardServletMultipartResolver cmr = new StandardServletMultipartResolver();
         if(cmr.isMultipart(request)){
             MultipartHttpServletRequest mhs = cmr.resolveMultipart(request);
-            mhs.setCharacterEncoding("utf-8");
             MultipartFile mf = mhs.getFile("profilePicture");
             String root="C:\\Users\\geoge\\IdeaProjects\\Spring_Maven\\src\\main\\webapp\\tmp\\upload\\";
             root+=mf.getOriginalFilename();
