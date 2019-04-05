@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+<bean id="audience" class="baseXmlAop.Audience"></bean>
+    <bean id="performance" class="baseXmlAop.Performance"></bean>
+    <bean id="watcher" class="baseXmlAop.AroundAdvice"></bean>
+    <!--XML基本配置AOP-->
+    <!--
+    <aop:config>
+    <aop:aspect ref="audience">
+        <aop:before method="silenceCellPhone" pointcut="execution(* baseXmlAop.Performance.perform(..))"/>
+        <aop:before method="takeSeats" pointcut="execution(* baseXmlAop.Performance.perform(..))"/>
+        <aop:after-returning method="applause" pointcut="execution(* baseXmlAop.Performance.perform(..))"/>
+        <aop:after-throwing method="demandRefund" pointcut="execution(* baseXmlAop.Performance.perform(..))"/>
+       </aop:aspect>
+    </aop:config>
+    -->
+    <!--使用aop:pointcut定义命名切点-->
+    <!--
+    <aop:config>
+        <aop:aspect ref="audience">
+            <aop:pointcut id="perform" expression="execution(* baseXmlAop.Performance.perform(..))"/>
+            <aop:before method="silenceCellPhone" pointcut-ref="perform"/>
+            <aop:before method="takeSeats" pointcut-ref="perform"/>
+            <aop:after-returning method="applause" pointcut-ref="perform"/>
+            <aop:after-throwing method="demandRefund" pointcut-ref="perform"/>
+        </aop:aspect>
+    </aop:config>
+    -->
+    <!--在xml中使用aop:around元素声明环绕通知-->
+    <aop:config>
+        <aop:aspect ref="watcher">
+            <aop:pointcut id="perform" expression="execution(* baseXmlAop.Performance.perform(..))"/>
+            <aop:around method="watchPerformance" pointcut-ref="perform"></aop:around>
+        </aop:aspect>
+    </aop:config>
+</beans>
