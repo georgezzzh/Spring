@@ -1,21 +1,55 @@
 ## SpringMVC 文件上传
 
-
-
 **Attention: 使用HttpServletRequest时，一定要设置UTF-8编码**
+### 1. 使用Spring自带的StandardServletMultipartResolver解析
 
-### 1.  使用apache.common方式上传
+1. 依赖包(配置好Spring的依赖包就可以，不需要另外的包)
 
-1. 依赖包(commons-fileupload, commons-io)两个jar包
+2. web.xml配置
 
-2. web.xml中配置
+   要求web-app的vesion>=3.0，因为Spring的StandardMultipartResolver需要依赖Servlet-api, 所以要在web.xml配置
 
    ```xml
-   <multipart-config>
-       <max-file-size>2097152</max-file-size>
-       <max-request-size>2097152</max-request-size>
-   </multipart-config>
+    <!--配置SpringMVC-->
+     <servlet>
+       <servlet-name>dispatcher</servlet-name>
+       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <load-on-startup>1</load-on-startup>
+       <async-supported>true</async-supported>
+       <!--multipart-file配置-->
+       <multipart-config>
+         <location>C:\Users\geoge\Desktop</location>
+         <max-file-size>1000000</max-file-size>
+       </multipart-config>
+     </servlet>
    ```
+
+3. dispatcher-servlet.xml配置
+
+   ```xml
+   <!--配置标准multipart-->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+   ```
+
+4. java代码
+
+   ```java
+   @RequestMapping("/user/upload")
+   //这里用的是MultipartHttpServletRequest
+   public String uploadBySpring(MultipartHttpServletRequest request) throws Exception{
+       MultipartFile file=request.getFile("file");
+       String name=request.getParameter("name");
+       file.transferTo(new File("C:\\Users\\geoge\\Desktop\\"+file.getOriginalFilename()));
+       return "filename="+file.getOriginalFilename()+",name="+name;
+   }
+   ```
+
+5. 前端表单一样
+
+
+### 2.  使用apache.common方式上传
+
+1. 依赖包(commons-fileupload, commons-io)两个jar包
 
 3. dispattcher-servlet中配置    
 
@@ -29,64 +63,26 @@
 4. java代码
 
    ```java
-   public String processRegistraction(HttpServletRequest request)
-   throws IOException
-   {
-       //创建一个多分解的容器
-       CommonsMultipartResolver cmr = new CommonsMultipartResolver(request.getSession().getServletContext());
-       //设置编码
-       cmr.setDefaultEncoding("utf-8");
-       //判断是否有文件上传
-       if(cmr.isMultipart(request)){
-           //将request转换成多分解请求
-           MultipartHttpServletRequest mhs = cmr.resolveMultipart(request);
-           //根据input中存在的name来获取是否存在上传文件
-           MultipartFile mf = mhs.getFile("profilePicture");
-           //创建文件保存名
-           File file = new File(mf.getOriginalFilename());
-           //保存文件到磁盘中
-           mf.transferTo(file);
-           System.out.println("current Path:"+file.getAbsolutePath());
+   @RequestMapping("/user/upload")
+   public String uploadFile(@RequestParam String name,@RequestParam("file")MultipartFile file) throws Exception
+       {
+           if(!file.isEmpty()){
+              file.transferTo(new File("C:\\Users\\geoge\\Desktop\\"+file.getOriginalFilename()));
+              return name+"success";
+           }
+           else
+               return "failure";
        }
-       return "profile";
-   }
    ```
-
+   
 5. 前端表单
 
    ```html
    <form method="post" enctype="multipart/form-data">
+       <input type="text" name="name"/>
        <input type="file" name="profilePicture"/>
        <input type="submit"/>
    </form>
    ```
-
    
 
-### 2. 使用Spring自带的StandardServletMultipartResolver解析
-
-1. 依赖包(配置好Spring的依赖包就可以，不需要另外的包)
-2. web.xml配置(和commons配置相同)
-3. dispatcher-servlet.xml配置       
-    ```xml
-    <bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-    </bean>
-    ```
-4. Java部分
-
-    ```java
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String process(HttpServletRequest request)
-    throws IOException{
-        request.setCharacterEncoding("UTF-8");
-        StandardServletMultipartResolver cmr = new StandardServletMultipartResolver();
-        if(cmr.isMultipart(request)){
-            MultipartHttpServletRequest mhs = cmr.resolveMultipart(request);
-            MultipartFile mf = mhs.getFile("profilePicture");
-            String root="C:\\Users\\geoge\\IdeaProjects\\Spring_Maven\\src\\main\\webapp\\tmp\\upload\\";
-            root+=mf.getOriginalFilename();
-            mf.transferTo(new File(root));
-        }
-        return "profile";
-    }
-    ```
