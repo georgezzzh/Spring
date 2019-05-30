@@ -28,5 +28,23 @@
    }
    ```
 
-这样配置好测试环境就不必用*ApplicationContext*对象来获取Spring中的Bean了。
+这样配置好测试环境就不必用*ApplicationContext*对象来获取Spring中的Bean了。    
+3. 在运行的web应用中测试
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"classpath*:applicationContext.xml","classpath*:mvc-servlet.xml"})
+@WebAppConfiguration
+public class QueueTest {
+    @Autowired
+    Productor productor;
+    @Test
+    public void test01(){
+        productor.sendMessage("sessionId","ok");
+    }
+}
+```
+需要标记注解@WebAppConfiguration,。
+#### 关于MySql在运行时没问题，但在测试中的问题
+需要导入mysqk-connector-j的maven依赖。此外，sql的url需要填写的参数为
+`?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&useSSL=false`
 
