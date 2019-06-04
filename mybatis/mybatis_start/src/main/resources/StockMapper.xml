@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.ans.userMapper">
+
+    <!--由于键为自增键,选取主键最大的一条返回-->
+    <!--通过stock_code来获取-->
+    <select id="getStock" parameterType="String" resultType="com.test.ans.Stock">
+        select * from stock where s_id=(select max(s_id) from stock where stock_code=#{s_id});
+    </select>
+    <!--多个参数传入对象的属性即可-->
+    <insert id="insertStock" parameterType="com.test.ans.Stock">
+        insert into stock(stock_code,trading_date,close_price,isValid)
+        values(#{stock_code},#{trading_date},#{close_price},#{isValid});
+    </insert>
+    <select id="getStockByPK" parameterType="int" resultType="com.test.ans.Stock">
+        select * from stock where s_id=#{pk}
+    </select>
+
+</mapper>
