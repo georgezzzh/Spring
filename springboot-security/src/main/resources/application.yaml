@@ -1,0 +1,39 @@
+
+server:
+  port: 8080
+# 对象的注入
+person:
+  name: george
+  age: 5
+  email: usasne@163.com
+  happy: false
+  birthday: 2019/11/02
+  maps: {k1: v1, k2: v2}
+  list: [code, music]
+  dog:
+    name: 旺财
+    age: 3
+
+# 激活dev环境
+#spring:
+#  profiles:
+#    active: dev
+
+#spring:
+#  mvc:
+#    format:
+#      date: yyyy-MM-dd
+# 关闭模板的缓存
+spring:
+  thymeleaf:
+    cache: false
+  # 配置数据库
+  datasource:
+    url: jdbc:mysql://localhost:3306/myfirstsql
+    username: root
+    password: newworld
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# 配置mybatis的mapper.xml目录
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
