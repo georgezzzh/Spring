@@ -5,6 +5,6 @@
 <!--绑定接口-->
 <mapper namespace="org.example.mapper.UserMapper">
     <select id="selectUser" resultType="org.example.pojo.User">
-        select * from user;
+        select * from dept;
     </select>
 </mapper>

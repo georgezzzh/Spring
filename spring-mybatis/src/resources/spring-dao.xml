@@ -27,4 +27,9 @@
     <bean id="userMapper" class="org.example.mapper.UserMapperImpl">
         <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
     </bean>
+
+    <bean id="userMapper2" class="org.example.mapper.UserMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+
 </beans>

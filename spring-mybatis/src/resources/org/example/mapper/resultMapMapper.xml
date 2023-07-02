@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--编写BrandMapper接口对应的SQL-->
+<mapper namespace="org.example.mapper.resultMapMapper">
+    <resultMap id="resultMap" type="org.example.pojo.DeptCamel">
+        <id column="deptno" property="deptNo"/>
+        <result column="dbname" property="dbName"/>
+        <result column="dbsource" property="dbSource"/>
+    </resultMap>
+    <select id="selectAll" resultMap="resultMap">
+        select * from dept;
+    </select>
+</mapper>

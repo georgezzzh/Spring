@@ -19,11 +19,8 @@
         </environment>
     </environments>
     <!--注册sql配置文件-->
-
+    <!--添加mapper的位置-->
     <mappers>
-        <mapper resource="userMapper.xml"/>
-        <!--在子目录下的mapper.xml-->
-        <mapper resource="org/example/mapper/resultMapMapper.xml"/>
+        <package name="org.example.mapper"/>
     </mappers>
-
 </configuration>
