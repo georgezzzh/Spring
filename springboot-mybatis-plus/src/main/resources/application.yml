@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driver-clss-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatisplus_db?useUnicode=true
+    username: root
+    password: newworld
+
