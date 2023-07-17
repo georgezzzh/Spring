@@ -4,4 +4,17 @@ spring:
     url: jdbc:mysql://localhost:3306/mybatisplus_db?useUnicode=true
     username: root
     password: newworld
+  main:
+    banner-mode: off # 关掉spring-boot的banner
 
+# 去掉mybatis的banner
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 开启mp的日志，日志会打印SQL语句
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
